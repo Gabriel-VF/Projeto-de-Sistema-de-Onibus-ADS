@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class registroAssento {
+public class Sistema {
 	static final int NUMERO_ASSENTOS = 46;
 
 	static String repetirChar(char caractere, int nVezes) {
