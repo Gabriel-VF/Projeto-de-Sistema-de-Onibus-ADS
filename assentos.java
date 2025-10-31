@@ -1,8 +1,5 @@
-package atividades.sistema_de_onibus;
-
-public class Onibus {
-    public static void main(String[] args) {
-        System.out.println(
+public class SistemaASCII {
+    static String onibusStr = (
             "┌--──────────────--┐\n" +
             "│  o               |\n" +
             "│[%s][%s]..[%s][%s]│\n" +
@@ -25,5 +22,4 @@ public class Onibus {
             "|                  |\n" +
             "│[%s][%s]..[  WC  ]│\n" +
             "└──────────────────┘");
-    }
 }
