@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Sistema {
-	static final int NUMERO_ASSENTOS = 38; // 38
+	static final int NUMERO_ASSENTOS = 38;
 
 	static String repetirChar(char caractere, int nVezes) {
 		String str = "";
@@ -19,15 +19,6 @@ public class Sistema {
 		return strAcumuladora;
 	}
 
-	// Previne NullPointerException
-	static boolean[] iniciarOnibusVazio(int numeroAssentos) {
-		boolean[] falsos = new boolean[numeroAssentos];
-		for (int i = 0; i < numeroAssentos; i++) {
-			falsos[i] = false;
-		}
-		return falsos;
-	}
-
 	static int contarVagasOcupadas(boolean[] onibus) {
 		int numeroAssentosOcupados = 0;
 		for (int i = 0; i < onibus.length; i++) {
@@ -38,6 +29,7 @@ public class Sistema {
 		return numeroAssentosOcupados;
 	}
 
+	// Troca posição dos valores da terceira e quarta fila
 	static String[] trocarStrings(String[] listaStrings) {
 		String temp;
 		for (int i = 2; i < NUMERO_ASSENTOS - 1; i += 4) {
@@ -48,7 +40,7 @@ public class Sistema {
 		return listaStrings;
 	}
 
-	static String formatarOnibusStr(String onibusStr, boolean[] assentos) {
+	static String formatarOnibusASCII(String onibusASCII, boolean[] assentos) {
 		String[] valoresAssentos = new String[NUMERO_ASSENTOS];
 		for (int i = 0; i < NUMERO_ASSENTOS; i++) {
 			if (assentos[i] == true) {
@@ -61,32 +53,48 @@ public class Sistema {
 
 		// Se não fazer casting pra (Object[]) o compiler manda um aviso. Ignore o
 		// (Object)
-		onibusStr = String.format(onibusStr, ((Object[]) valoresAssentos));
-		return onibusStr;
+		onibusASCII = String.format(onibusASCII, ((Object[]) valoresAssentos));
+		return onibusASCII;
 	}
+
+	static String strAssentosDesocupados(boolean[] onibus) {
+		String assentosDesocupados = "";
+		for (int i = 0; i < NUMERO_ASSENTOS - 1; i++) {
+			if (!onibus[i]) {
+				assentosDesocupados += (i + 1) + " ";
+			}
+		}
+		if (!onibus[NUMERO_ASSENTOS - 1]) {
+			assentosDesocupados += (NUMERO_ASSENTOS);
+		}
+		return "Opções: " + assentosDesocupados;
+	}
+
 	public static void main(String[] args) {
-		int pedidoAssento = 100;
+		int pedidoAssento;
 		Scanner scanner = new Scanner(System.in);
-		boolean[] onibus = iniciarOnibusVazio(NUMERO_ASSENTOS);
-		String onibusStr = SistemaASCII.onibusStr;
+		boolean[] onibus = new boolean[NUMERO_ASSENTOS];
+		String onibusASCII = SistemaASCII.onibusStr;
 
 		System.out.println(repetirChar('-', 20));
 		while (contarVagasOcupadas(onibus) < NUMERO_ASSENTOS) {
+			System.out.println("\n" + strAssentosDesocupados(onibus));
 			System.out.print("Insira seu assento [1-38]: ");
 			pedidoAssento = scanner.nextInt() - 1;
-			if (pedidoAssento < 0) {
+			if (pedidoAssento < 0 || pedidoAssento > NUMERO_ASSENTOS - 1) {
 				break;
 			}
-			if (onibus[pedidoAssento] == false) {
+			if (!onibus[pedidoAssento]) {
 				onibus[pedidoAssento] = true;
 			} else {
-				System.out.println("\nAssento já ocupado!");
+				System.out.println("\nAssento já ocupado.");
 			}
 		}
 		System.out.println(repetirChar('-', 20));
 		System.out.println("\nSaindo");
-		onibusStr = formatarOnibusStr(onibusStr, onibus);
-		System.out.println(String.format(onibusStr, 1));
+
+		onibusASCII = formatarOnibusASCII(onibusASCII, onibus);
+		System.out.println(onibusASCII);
 
 		scanner.close();
 	}
