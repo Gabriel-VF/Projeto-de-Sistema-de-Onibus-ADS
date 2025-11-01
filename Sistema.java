@@ -1,4 +1,6 @@
 import java.util.Scanner;
+// import java.util.Dictionary;
+// import java.util.Hashtable;
 
 public class Sistema {
 	static final int NUMERO_ASSENTOS = 46;
@@ -57,35 +59,57 @@ public class Sistema {
 		return onibusASCII;
 	}
 
+	static void imprimirAssentos(boolean[] assentos) {
+		System.out.println();
+		for (int i = 0; i < NUMERO_ASSENTOS; i++) {
+			if (assentos[i]) {
+				System.out.print((i + 1) + " ");
+			}
+		}
+		System.out.println();
+	}
+
 	public static void main(String[] args) {
-		int pedidoAssento;
+		String[] listaDeOnibus = { "onibus 1", "onibus 2", "onibus 3" };
+		boolean[][] mapaDosOnibus = new boolean[listaDeOnibus.length][NUMERO_ASSENTOS];
+		String[] listaDesenhosASCII = new String[listaDeOnibus.length];
+		// String[] listaRotas = new String[listaDeOnibus.length];
+		int escolhaDeAssento;
+		int escolhaDeOnibus;
 		char input;
 		Scanner scanner = new Scanner(System.in);
-		boolean[] assentos = new boolean[NUMERO_ASSENTOS];
-		String onibus1ASCII = formatarOnibusASCII(SistemaASCII.onibus, assentos);
+		for (int i = 0; i < listaDeOnibus.length; i++) {
+			listaDesenhosASCII[i] = formatarOnibusASCII(SistemaASCII.onibus, new boolean[NUMERO_ASSENTOS]);
+			mapaDosOnibus[i] = new boolean[NUMERO_ASSENTOS];
+			;
+		}
 
-		while (contarVagasOcupadas(assentos) < NUMERO_ASSENTOS) {
-			System.out.println(onibus1ASCII);
+		while (true) {
+			System.out.print("Escolha seu ônibus: ");
+			escolhaDeOnibus = scanner.nextInt() - 1;
+			System.out.println(listaDesenhosASCII[escolhaDeOnibus]);
 			System.out.print(String.format("Insira seu assento [1-%s]: ", NUMERO_ASSENTOS));
-			pedidoAssento = scanner.nextInt() - 1;
+			escolhaDeAssento = scanner.nextInt() - 1;
 
-			if (pedidoAssento < 0 || pedidoAssento > NUMERO_ASSENTOS - 1) {
+			if (escolhaDeAssento < 0 || escolhaDeAssento > NUMERO_ASSENTOS - 1) {
 				break;
 			}
-			if (!assentos[pedidoAssento]) {
-				assentos[pedidoAssento] = true;
+			if (!mapaDosOnibus[escolhaDeOnibus][escolhaDeAssento]) {
+				System.out.println("Dando valor de true para " + escolhaDeOnibus);
+				mapaDosOnibus[escolhaDeOnibus][escolhaDeAssento] = true;
 			} else {
 				System.out.print("\nAssento já ocupado. Deseja cancelar reserva? [S/N]: ");
 				input = scanner.next().toUpperCase().charAt(0);
 				if (input == 'S') {
-					assentos[pedidoAssento] = false;
+					mapaDosOnibus[escolhaDeOnibus][escolhaDeAssento] = false;
 				}
 
 			}
-			onibus1ASCII = formatarOnibusASCII(SistemaASCII.onibus, assentos);
+			listaDesenhosASCII[escolhaDeOnibus] = formatarOnibusASCII(SistemaASCII.onibus,
+					mapaDosOnibus[escolhaDeOnibus]);
 		}
+
 		System.out.println("\n\nSaindo");
-		System.out.println(onibus1ASCII);
 
 		scanner.close();
 	}
