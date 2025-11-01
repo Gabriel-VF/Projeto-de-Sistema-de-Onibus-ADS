@@ -21,16 +21,6 @@ public class Sistema {
 		return strAcumuladora;
 	}
 
-	static int contarVagasOcupadas(boolean[] onibus) {
-		int numeroAssentosOcupados = 0;
-		for (int i = 0; i < onibus.length; i++) {
-			if (onibus[i] == true) {
-				numeroAssentosOcupados++;
-			}
-		}
-		return numeroAssentosOcupados;
-	}
-
 	// Troca posição dos valores da terceira e quarta fila
 	static String[] trocarStrings(String[] listaStrings) {
 		String temp;
@@ -59,6 +49,7 @@ public class Sistema {
 		return onibusASCII;
 	}
 
+	// Não usado
 	static void imprimirAssentos(boolean[] assentos) {
 		System.out.println();
 		for (int i = 0; i < NUMERO_ASSENTOS; i++) {
@@ -69,10 +60,24 @@ public class Sistema {
 		System.out.println();
 	}
 
+	// Não usado
+	static int contarVagasOcupadas(boolean[] onibus) {
+		int numeroAssentosOcupados = 0;
+		for (int i = 0; i < onibus.length; i++) {
+			if (onibus[i] == true) {
+				numeroAssentosOcupados++;
+			}
+		}
+		return numeroAssentosOcupados;
+	}
+
 	public static void main(String[] args) {
+		// Não tenho certeza se cada ônibus vai ter um nome ou id
 		String[] listaDeOnibus = { "onibus 1", "onibus 2", "onibus 3" };
+		// mapaDosOnibus[índice do ônibus][assento]
 		boolean[][] mapaDosOnibus = new boolean[listaDeOnibus.length][NUMERO_ASSENTOS];
 		String[] listaDesenhosASCII = new String[listaDeOnibus.length];
+		// No futuro será as rotas de cada ônibus:
 		// String[] listaRotas = new String[listaDeOnibus.length];
 		int escolhaDeAssento;
 		int escolhaDeOnibus;
@@ -81,11 +86,11 @@ public class Sistema {
 		for (int i = 0; i < listaDeOnibus.length; i++) {
 			listaDesenhosASCII[i] = formatarOnibusASCII(SistemaASCII.onibus, new boolean[NUMERO_ASSENTOS]);
 			mapaDosOnibus[i] = new boolean[NUMERO_ASSENTOS];
-			;
 		}
 
 		while (true) {
-			System.out.print("Escolha seu ônibus: ");
+			// No futuro incluirá a rota e preço de cada ônibus:
+			System.out.print(String.format("Escolha seu ônibus [1-%s]: ", listaDeOnibus.length));
 			escolhaDeOnibus = scanner.nextInt() - 1;
 			System.out.println(listaDesenhosASCII[escolhaDeOnibus]);
 			System.out.print(String.format("Insira seu assento [1-%s]: ", NUMERO_ASSENTOS));
@@ -95,7 +100,6 @@ public class Sistema {
 				break;
 			}
 			if (!mapaDosOnibus[escolhaDeOnibus][escolhaDeAssento]) {
-				System.out.println("Dando valor de true para " + escolhaDeOnibus);
 				mapaDosOnibus[escolhaDeOnibus][escolhaDeAssento] = true;
 			} else {
 				System.out.print("\nAssento já ocupado. Deseja cancelar reserva? [S/N]: ");
@@ -114,10 +118,3 @@ public class Sistema {
 		scanner.close();
 	}
 }
-
-/*
- * Menu interativo
- * Visualizar rotas, horários e preços
- * OK: Reservar + mapa visual
- * OK: Cancelamento de reserva
- */
