@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Sistema {
-	static final int NUMERO_ASSENTOS = 38;
+	static final int NUMERO_ASSENTOS = 46;
 
 	static String repetirChar(char caractere, int nVezes) {
 		String str = "";
@@ -52,50 +52,48 @@ public class Sistema {
 		valoresAssentos = trocarStrings(valoresAssentos);
 
 		// Se não fazer casting pra (Object[]) o compiler manda um aviso. Ignore o
-		// (Object)
+		// (Object[])
 		onibusASCII = String.format(onibusASCII, ((Object[]) valoresAssentos));
 		return onibusASCII;
 	}
 
-	static String strAssentosDesocupados(boolean[] onibus) {
-		String assentosDesocupados = "";
-		for (int i = 0; i < NUMERO_ASSENTOS - 1; i++) {
-			if (!onibus[i]) {
-				assentosDesocupados += (i + 1) + " ";
-			}
-		}
-		if (!onibus[NUMERO_ASSENTOS - 1]) {
-			assentosDesocupados += (NUMERO_ASSENTOS);
-		}
-		return "Opções: " + assentosDesocupados;
-	}
-
 	public static void main(String[] args) {
 		int pedidoAssento;
+		char input;
 		Scanner scanner = new Scanner(System.in);
-		boolean[] onibus = new boolean[NUMERO_ASSENTOS];
-		String onibusASCII = SistemaASCII.onibusStr;
+		boolean[] assentos = new boolean[NUMERO_ASSENTOS];
+		String onibus1ASCII = formatarOnibusASCII(SistemaASCII.onibus, assentos);
 
-		System.out.println(repetirChar('-', 20));
-		while (contarVagasOcupadas(onibus) < NUMERO_ASSENTOS) {
-			System.out.println("\n" + strAssentosDesocupados(onibus));
-			System.out.print("Insira seu assento [1-38]: ");
+		while (contarVagasOcupadas(assentos) < NUMERO_ASSENTOS) {
+			System.out.println(onibus1ASCII);
+			System.out.print(String.format("Insira seu assento [1-%s]: ", NUMERO_ASSENTOS));
 			pedidoAssento = scanner.nextInt() - 1;
+
 			if (pedidoAssento < 0 || pedidoAssento > NUMERO_ASSENTOS - 1) {
 				break;
 			}
-			if (!onibus[pedidoAssento]) {
-				onibus[pedidoAssento] = true;
+			if (!assentos[pedidoAssento]) {
+				assentos[pedidoAssento] = true;
 			} else {
-				System.out.println("\nAssento já ocupado.");
-			}
-		}
-		System.out.println(repetirChar('-', 20));
-		System.out.println("\nSaindo");
+				System.out.print("\nAssento já ocupado. Deseja cancelar reserva? [S/N]: ");
+				input = scanner.next().toUpperCase().charAt(0);
+				if (input == 'S') {
+					assentos[pedidoAssento] = false;
+				}
 
-		onibusASCII = formatarOnibusASCII(onibusASCII, onibus);
-		System.out.println(onibusASCII);
+			}
+			onibus1ASCII = formatarOnibusASCII(SistemaASCII.onibus, assentos);
+		}
+		System.out.println("\n\nSaindo");
+		System.out.println(onibus1ASCII);
 
 		scanner.close();
 	}
 }
+
+/*
+ * Menu interativo
+ * Visualizar rotas, horários e preços
+ * OK: Reservar + mapa visual
+ * OK: Cancelamento de reserva
+ */

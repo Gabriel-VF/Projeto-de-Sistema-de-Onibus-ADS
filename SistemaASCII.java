@@ -1,5 +1,5 @@
 public class SistemaASCII {
-    static String onibusStr = (
+    static String onibus = (
             "┌--──────────────--┐\n" +
             "│  o               |\n" +
             "│[%s][%s]..[%s][%s]│\n" +
@@ -20,6 +20,11 @@ public class SistemaASCII {
             "|                  |\n" +
             "│[%s][%s]..[%s][%s]│\n" +
             "|                  |\n" +
+            "│[%s][%s]..[%s][%s]│\n" +
+            "|                  |\n" +
+            "│[%s][%s]..[%s][%s]│\n" +
+            "|                  |\n" +
             "│[%s][%s]..[  WC  ]│\n" +
-            "└──────────────────┘");
+            "└──────────────────┘"
+        );
 }
