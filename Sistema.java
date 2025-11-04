@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class Sistema {
 	static final int NUMERO_ASSENTOS = Onibus.NUMERO_ASSENTOS;
-	static final boolean[] ASSENTOS_VAZIOS = new boolean[NUMERO_ASSENTOS];
+	static final boolean[] LISTA_ASSENTOS_VAZIOS = new boolean[NUMERO_ASSENTOS];
 
 	public static void main(String[] args) {
-		Onibus onibus_1 = new Onibus("O1", "Tauá -> Picos", 60.5, "16:30 -> 22:00", ASSENTOS_VAZIOS);
-		Onibus onibus_2 = new Onibus("O2", "Tauá -> Fortaleza", 80.9, "17:00 -> 00:00", ASSENTOS_VAZIOS);
-		Onibus onibus_3 = new Onibus("O3", "Tauá -> Juazeiro do Norte", 70.2, "19:00 -> 22:00", ASSENTOS_VAZIOS);
+		Onibus onibus_1 = new Onibus("O1", "Tauá -> Picos", 60.5, "16:30 -> 22:00", LISTA_ASSENTOS_VAZIOS.clone());
+		Onibus onibus_2 = new Onibus("O2", "Tauá -> Fortaleza", 80.9, "17:00 -> 00:00", LISTA_ASSENTOS_VAZIOS.clone());
+		Onibus onibus_3 = new Onibus("O3", "Tauá -> Juazeiro do Norte", 70.2, "19:00 -> 22:00", LISTA_ASSENTOS_VAZIOS.clone());
 		// No futuro talvez seja um dicionário com chave sendo o nome do ônibus:
 		Onibus[] listaDeOnibus = { onibus_1, onibus_2, onibus_3 };
 		int escolhaAssento;
