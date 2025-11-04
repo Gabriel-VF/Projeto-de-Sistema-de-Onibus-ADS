@@ -1,4 +1,4 @@
-public class SistemaASCII {
+public class DesenhosASCII {
     static String onibus = (
             "┌--──────────────--┐\n" +
             "│  o               |\n" +
