@@ -1,16 +1,20 @@
 public class Onibus {
-	private final String formatoASCII = DesenhosASCII.onibus;
+	private final String formatoASCII = InterfaceASCII.onibus;
 
 	String nome;
 	String rota;
+	String horario;
+	double valor;
 	boolean[] assentos;
 	static final int NUMERO_ASSENTOS = 46;
 
 	// Construtor
-	Onibus(String nome, String rota, boolean[] assentos) {
+	Onibus(String nome, String rota, double valor, String horario, boolean[] assentos) {
 		this.nome = nome;
 		this.rota = rota;
 		this.assentos = assentos;
+		this.horario = horario;
+		this.valor = valor;
 	}
 
 	// Troca posição dos valores da terceira e quarta fila
