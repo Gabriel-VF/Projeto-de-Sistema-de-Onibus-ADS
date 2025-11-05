@@ -1,6 +1,4 @@
 import java.util.Scanner;
-// import java.util.Dictionary;
-// import java.util.Hashtable;
 
 public class Sistema {
 	static final int NUMERO_ASSENTOS = Onibus.NUMERO_ASSENTOS;

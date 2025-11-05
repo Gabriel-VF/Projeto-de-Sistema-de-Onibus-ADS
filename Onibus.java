@@ -1,11 +1,11 @@
 public class Onibus {
-	private final String formatoASCII = InterfaceASCII.onibus;
-
 	String nome;
 	String rota;
 	String horario;
 	double valor;
 	boolean[] assentos;
+
+	private final String formatoASCII = InterfaceASCII.onibus;
 	static final int NUMERO_ASSENTOS = 46;
 
 	// Construtor

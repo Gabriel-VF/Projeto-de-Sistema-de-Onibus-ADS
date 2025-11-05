@@ -81,17 +81,17 @@ public class InterfaceASCII {
 
     private static String[] criarLinhaVerticais(Onibus onibus, final int LARGURA) {
         final int NUMERO_VALORES = 4;
-        String[] offsets = new String[NUMERO_VALORES];
+        String[] offset = new String[NUMERO_VALORES];
         String[] linhasV = new String[NUMERO_VALORES];
         int valorLength = String.format("%s", onibus.valor).length();
 
         // -1 por causa do CHAR_VERTICAL final que vai ser adicionado
-        offsets[0] = repetirChar(' ', LARGURA - OFFSET_ONIBUS_INFO - onibus.nome.length() - 1);
-        offsets[1] = repetirChar(' ', LARGURA - OFFSET_ONIBUS_INFO - onibus.rota.length() - 1);
-        offsets[2] = repetirChar(' ', LARGURA - OFFSET_ONIBUS_INFO - onibus.horario.length() - 1);
-        offsets[3] = repetirChar(' ', LARGURA - OFFSET_ONIBUS_INFO - valorLength - 3); // Por causa do "R$" e CHAR_VERTICAL
+        offset[0] = repetirChar(' ', LARGURA - OFFSET_ONIBUS_INFO - onibus.nome.length() - 1);
+        offset[1] = repetirChar(' ', LARGURA - OFFSET_ONIBUS_INFO - onibus.rota.length() - 1);
+        offset[2] = repetirChar(' ', LARGURA - OFFSET_ONIBUS_INFO - onibus.horario.length() - 1);
+        offset[3] = repetirChar(' ', LARGURA - OFFSET_ONIBUS_INFO - valorLength - 3); // Por causa do "R$" e CHAR_VERTICAL
         for (int i = 0; i < NUMERO_VALORES; i++) {
-            linhasV[i] = offsets[i] + CHAR_VERTICAL;
+            linhasV[i] = offset[i] + CHAR_VERTICAL;
         }
         return linhasV;
     }
