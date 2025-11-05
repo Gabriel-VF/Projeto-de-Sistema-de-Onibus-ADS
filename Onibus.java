@@ -28,7 +28,7 @@ public class Onibus {
 		return listaStrings;
 	}
 
-	String construirMapaASCII() {
+	String mapaASCII() {
 		String[] valoresAssentos = new String[NUMERO_ASSENTOS];
 		for (int i = 0; i < NUMERO_ASSENTOS; i++) {
 			if (assentos[i] == true) {

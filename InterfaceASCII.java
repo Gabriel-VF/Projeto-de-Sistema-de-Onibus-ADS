@@ -5,8 +5,6 @@ public class InterfaceASCII {
     final static char CHAR_CANTO_INFERIOR_DIREITO = '┘';
     final static char CHAR_CANTO_SUPERIOR_ESQUERDO = '┌';
     final static char CHAR_CANTO_SUPERIOR_DIREITO = '┐';
-    final static char LINHA_VERTICAL = '│';
-    final static char LINHA_HORIZONTAL = '─';
 
     static String onibus =
            ("┌--──────────────--┐\n" +
@@ -37,6 +35,7 @@ public class InterfaceASCII {
             "└──────────────────┘"
     );
 
+    private final static int LARGURA_MENSAGEM_BEM_VINDO = 51;
     static String mensagemBemVindo = (
         "┌─────────────────────────────────────────────────┐\n" +
         "│   Bem vindo ao sistema de reserva de ônibus!    │\n" +
@@ -44,7 +43,7 @@ public class InterfaceASCII {
     );
 
     // Espaço até a informação do ônibus
-    final static int OFFSET_ONIBUS_INFO = 17;
+    private final static int OFFSET_ONIBUS_INFO = 17;
     static String onibusInfo = (
         "│  Ônibus   >    %s\n" +
         "│  Rota     >    %s\n" +
@@ -62,10 +61,7 @@ public class InterfaceASCII {
 
     // Provavelmente overkill daqui pra baixo
 
-    // Define o tamanho da linha horizontal da interface dependendo da informação
-    // maior (rota ou nome)
-    // 2 de tamanho são excluídos para colocar os cantos
-    private static int larguraInterface(Onibus[] listaDeOnibus) {
+    private static int definirLargura(Onibus[] listaDeOnibus) {
         int tamanhoLinhaHorizontal;
         int tamanhoMaior = 0;
         for (int i = 0; i < listaDeOnibus.length; i++) {
@@ -102,20 +98,26 @@ public class InterfaceASCII {
 
     static void imprimirOnibusInfo(Onibus[] listaDeOnibus) {
         System.out.println(InterfaceASCII.mensagemBemVindo);
-        int tamanhoLinhaHorizontal = larguraInterface(listaDeOnibus);
+
+        // Reajusta largura da interface de acordo com necessidade. Por padrão é a mesma largura da mensagem de bem-vindo
+        int tamanhoLinhaHorizontal = definirLargura(listaDeOnibus);
+        // -2 por causa dos cantos
+        if (tamanhoLinhaHorizontal < LARGURA_MENSAGEM_BEM_VINDO - 2){
+            tamanhoLinhaHorizontal = LARGURA_MENSAGEM_BEM_VINDO - 2;
+        }
         String linhaHorizontal = repetirChar(CHAR_HORIZONTAL, tamanhoLinhaHorizontal);
         String[] linhasVerticais;
 
         for (int i = 0; i < listaDeOnibus.length; i++) {
             linhasVerticais = criarLinhaVerticais(listaDeOnibus[i], tamanhoLinhaHorizontal + 2);
-            System.out.println(
+            System.out.print(
                 CHAR_CANTO_SUPERIOR_ESQUERDO + linhaHorizontal + CHAR_CANTO_SUPERIOR_DIREITO + "\n" + 
-                String.format(InterfaceASCII.onibusInfo,
+                    String.format(InterfaceASCII.onibusInfo,
                     listaDeOnibus[i].nome + linhasVerticais[0],
                     listaDeOnibus[i].rota + linhasVerticais[1],
                     listaDeOnibus[i].horario + linhasVerticais[2],
                     "R$" + listaDeOnibus[i].valor + linhasVerticais[3] + "\n" + 
-                    CHAR_CANTO_INFERIOR_ESQUERDO + linhaHorizontal + CHAR_CANTO_INFERIOR_DIREITO
+                CHAR_CANTO_INFERIOR_ESQUERDO + linhaHorizontal + CHAR_CANTO_INFERIOR_DIREITO
             ));
         }
     }

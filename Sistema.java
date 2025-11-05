@@ -26,7 +26,7 @@ public class Sistema {
 				System.out.println("Saindo...");
 				break;
 			}
-			System.out.println(listaDeOnibus[escolhaOnibus].construirMapaASCII());
+			System.out.println(listaDeOnibus[escolhaOnibus].mapaASCII());
 			System.out.print(String.format("Insira seu assento [1-%s] ou digite 0 para sair: ", NUMERO_ASSENTOS));
 			escolhaAssento = scanner.nextInt() - 1;
 			if (escolhaAssento < 0 || escolhaAssento > NUMERO_ASSENTOS - 1) {
@@ -47,9 +47,7 @@ public class Sistema {
 
 			}
 			System.out.println("\n\n\n\n");
-
 		}
-
 		scanner.close();
 	}
 }
