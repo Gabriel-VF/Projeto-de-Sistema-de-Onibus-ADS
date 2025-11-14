@@ -37,6 +37,7 @@ public class Sistema {
 			"│[%s][%s]..[  WC  ]│\n" +
 			"└──────────────────┘");
 
+	// Cria o mapa ASCII do ônibus para imprimir
 	static String mapaASCII(boolean[] assentos) {
 		String[] valoresAssentos = new String[NUMERO_ASSENTOS];
 		for (int i = 0; i < NUMERO_ASSENTOS; i++) {
@@ -64,6 +65,7 @@ public class Sistema {
 		return listaStrings;
 	}
 
+	final static int LARGURA_MENSAGEM_BEM_VINDO = 51;
 	static String mensagemBemVindo = (
 			"┌─────────────────────────────────────────────────┐\n" +
 			"│   Bem vindo ao sistema de reserva de ônibus!    │\n" +
@@ -85,7 +87,8 @@ public class Sistema {
 		return strAcumuladora;
 	}
 
-	private static int definirLargura(String[] listaRotas, String[] listaNomes) {
+	// Define largura dependendo do tamanho do nome ou tamanho da rota
+	static int definirLargura(String[] listaRotas, String[] listaNomes) {
 		int tamanhoLinhaHorizontal;
 		int tamanhoMaior = 0;
 		for (int i = 0; i < listaRotas.length; i++) {
@@ -103,7 +106,8 @@ public class Sistema {
 		return tamanhoMaior;
 	}
 
-	private static String[] criarLinhaVerticais(String nome, String rota, String horario, double valor,
+	// Adiciona o caractere vertical (|) na direita do menu
+	static String[] criarLinhaVerticais(String nome, String rota, String horario, double valor,
 			final int LARGURA) {
 		final int NUMERO_VALORES = 4;
 		String[] offset = new String[NUMERO_VALORES];
@@ -121,10 +125,10 @@ public class Sistema {
 		return linhasV;
 	}
 
+	// Imprime as opções de ônibus e mensagem de bem-vindo
 	static void imprimirOnibusInfo(String[] listaNomes, String[] listaRotas, String[] listaHorarios,
 			double[] listaValores) {
 		System.out.println(mensagemBemVindo);
-		final int LARGURA_MENSAGEM_BEM_VINDO = mensagemBemVindo.length();
 
 		// Reajusta largura da interface de acordo com necessidade. Por padrão é a mesma
 		// largura da mensagem de bem-vindo
